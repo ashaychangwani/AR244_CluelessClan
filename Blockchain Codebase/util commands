@@ -1,0 +1,13 @@
+cd network/ && clear
+
+./scripts/networkUp.sh && sudo chmod -R 777 .
+
+source ./scripts/setEnvar.sh
+
+printenv | grep CORE
+
+source ./scripts/createChannel.sh
+
+source ./scripts/deployChaincode.sh
+
+./scripts/networkDown.sh

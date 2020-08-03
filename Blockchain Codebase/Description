@@ -1,0 +1,51 @@
+Setup a network for Fabric(local).
+
+network :
+
+    1] Jute Fabric producer -1 org -2 peers
+    2] Inspector -1 org -1 peer
+    3] Buyer
+
+Story : 
+
+    1] Producer produces a batch of Jute Bales(introduces an asset in ledger)
+    2] He tries to sell,it.(Changes asset state to available for sell)
+    3] Buyer wants to buy it.
+    4] Inspector inspects the batch, and generates inspection sheet
+       and corresponding certificate.( Change isInspected from no to yes,attach an inspection sheet with asset)
+    5] Finally Buyer buys it,if his/her requirements are satisfied.
+
+    Inspection sheet and certificate
+
+Asset fields:
+
+    As per National Agriculture Market.
+
+
+    CreateBale
+
+        Commodity Code: 16
+        Commodity Name: Jute Bales
+        Commodity Scientific Name: Conchorus spp.
+
+        Manufacture Date:
+        Manufacturer:
+        Owner:
+        Buying Date:
+        status: Not Inspected/Inspected/Ready for Sale
+
+    Inspect Bale
+
+        //To be updated by Inspector
+        Inspected :
+        Total Score :
+
+        Variety: Variety of jute
+        Actual Picture: Picture of Lot (convert to string and store)
+        
+        Reed Length:100-150
+        Strength: Range 1-5
+        Defects: Range 1-5
+        Root Content: Range 1-5
+        Fineness: Range 1-5
+        Colour: Range 1-5

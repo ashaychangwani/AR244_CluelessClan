@@ -1,0 +1,129 @@
+extends ../public/_bootstrap
+append styles
+	// Custom styles for this template
+	link(href='css/dashboard.css', rel='stylesheet')
+	link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+block body  
+	nav.navbar.navbar-inverse.navbar-fixed-top
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.navbar-brand(href='#') FABJUTE
+	.col-md-1
+	.col-md-10
+		div.myItem
+			h2.page-header Dashboard 
+		
+		.container
+		#accordion.panel-group
+			each key_object in jsonArray
+				.panel
+				.panel-heading
+					h4.panel-title 
+					a.accordion-toggle(href=`#panelBody${key_object.key}` data-toggle='collapse' data-parent='#accordion' area-expanded='false').assetName #{key_object.key}
+				.panelColour(id = `panelBody${key_object.key}`).panel-collapse.collapse
+					table.table
+						th Asset Number : #{key_object.Record.assetnumber}
+						th Asset Id : #{key_object.Record.assetid}
+						th Owner : #{key_object.Record.owner}
+						th Manufacturer: #{key_object.Record.manufacturer}
+						th Status: #{key_object.Record.status}
+						th Buyer : #{key_object.Record.buyer}
+						th Handler : #{key_object.Record.handler}
+						th Location : #{key_object.Record.location}
+						th
+							if key_object.Record.owner == "buyerMSP"
+								| 
+							else if key_object.Record.status == "Sale"
+								form(action="/buy",method="POST")
+									input(type="hidden",name="key",value=`${key_object.key}`)
+									input.btn-primary.btn(type="submit",value=`Buy ${key_object.key}`)
+							else
+								form(action="/AssetRecieved",method="POST")
+									input(type="hidden",name="key",value=`${key_object.key}`)
+									input.btn-primary.btn(type="submit",value=`Recieved ${key_object.key}`)
+						tr
+
+						tr
+						th Inspector : #{key_object.Record.inspector}
+						th Description: #{key_object.Record.description} 
+						th GAW: #{key_object.Record.gaw} 
+						th Weft: #{key_object.Record.weft} 
+						th Cut: #{key_object.Record.cut} 
+						th No. of Major Defects: #{key_object.Record.noofmsjordefects} 
+						th No. of Minor Defects: #{key_object.Record.noofminordefects} 
+						th 
+							a(href=`/getAssetHistory/${key_object.key}`)
+								button.btn.btn-primary View Asset History
+
+						tr
+	.col-md-1
+
+	#createAsset.modal.fade(tabindex='-1' role='dialog' aria-labelledby='createAsset')
+		.modal-dialog(role='document')
+			.modal-content
+			.modal-header
+				h2 Create an Asset
+			.modal-body
+				form( action="/createAsset",method="POST")
+					input.form-control(type="text",name="assetid",placeholder="Enter Asset ID to be created or updated")
+					input.form-control(type="submit",value="submit")
+	
+	#transferResponsibility.modal.fade(tabindex='-1' role='dialog' aria-labelledby='transferResponsibility')
+		.modal-dialog(role='document')
+			.modal-content
+			.modal-header
+				h2 Transfer Responsibility of an Asset
+			.modal-body
+				form(action="/transferResponsibility" method="POST"  )
+					input.form-control(type="input",id="transferResponsibilityForm",name="assetid")
+					input.form-control(type="text",placeholder="Enter Inspector Org Name ")
+					input.form-control(type="submit",value="submit")
+	
+	#transferAsset.modal.fade(tabindex='-1' role='dialog' aria-labelledby='transferAsset')
+		.modal-dialog(role='document')
+			.modal-content
+			.modal-header
+				h2 Transfer Asset
+			.modal-body
+				form(action="/transferAsset" method="POST")
+					input.form-control(type="input",id="transferAssetForm",name="assetid")
+					input.form-control(type="text",placeholder="Enter Buyer Org Name")
+					input.form-control(type="submit",value="submit")
+	
+	#inspectAsset.modal.fade(tabindex='-1' role='dialog' aria-labelledby='inspectAsset')
+		.modal-dialog(role='document')
+			.modal-content
+			.modal-header
+				h2 Inspect Asset
+			.modal-body
+				form( action="/inspectAsset" method="POST" ).inspect
+					input.form-control(type="input" id = "inspectAssetForm"  name="assetid",value="abc")
+					input.form-control(type="text",name="totalScore",placeholder="Enter Total Score")
+					input.form-control(type="text",name="variety",placeholder="Enter variety")
+					input.form-control(type="text",name="reedLength",placeholder="Enter Reed Length ")
+					input.form-control(type="text",name="strength",placeholder="Enter Strength Grade ")
+					input.form-control(type="text",name="defects",placeholder="Enter Defects Grade ")
+					input.form-control(type="text",name="rootContent",placeholder="Enter Root Content Grade")
+					input.form-control(type="text",name="fineness",placeholder="Enter Fineness Grade ")
+					input.form-control(type="text",name="colour",placeholder="Enter Colour Grade")
+					input.form-control(type="submit",value="submit")
+
+	script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript")
+	script.
+
+		var dict = {
+			"#inspectAsset": "inspectAssetForm",
+			"#transferAsset": "transferAssetForm",
+			"#transferResponsibility": "transferResponsibilityForm",
+		}
+
+		$(document).on("click",".button1",function(){
+			var assetid = $(this).data('var');
+			var modalid = $(this).data('target');
+			document.getElementById(dict[modalid]).value = assetid;
+		});

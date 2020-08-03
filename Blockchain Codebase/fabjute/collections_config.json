@@ -1,0 +1,38 @@
+[
+    {
+    "name": "manufacturerMSPPrivateCollection",
+    "policy": "OR('manufacturerMSP.member')",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 1,
+    "blockToLive":3,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true,
+    "endorsementPolicy": {
+        "signaturePolicy": "OR('manufacturerMSP.member')"
+        }
+    },
+    {
+    "name": "buyerMSPPrivateCollection",
+    "policy": "OR('buyerMSP.member')",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 1,
+    "blockToLive":3,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true,
+    "endorsementPolicy": {
+        "signaturePolicy": "OR('buyerMSP.member')"
+        }
+    },
+    {
+        "name": "inspectorMSPPrivateCollection",
+        "policy": "OR('inspectorMSP.member')",
+        "requiredPeerCount": 0,
+        "maxPeerCount": 1,
+        "blockToLive":3,
+        "memberOnlyRead": true,
+        "memberOnlyWrite": true,
+        "endorsementPolicy": {
+            "signaturePolicy": "OR('inspectorMSP.member')"
+            }
+    }
+]

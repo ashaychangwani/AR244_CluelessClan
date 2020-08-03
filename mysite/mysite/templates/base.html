@@ -1,0 +1,53 @@
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+.center {
+background: linear-gradient(to bottom, #a8ff78, #78ffd6);
+  
+  padding: 10px;
+  border-radius: 20px;
+  padding-top: 50px;
+	padding-right: 50px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+	font-size: 18px;
+	
+	width: 600px;
+	height: 300px;
+	
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+</style>
+
+<div class="center">
+<h2>Upload a Test Image</h2>
+<form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     <input type="file" name="video">
+     <button type="submit" style="border-radius: 10px;">Upload File</button>
+</form>
+{% if url %}
+     <p>Uploaded File: <a href="{{ url }}">{{ url }}</a></p>
+     <form action="{% url 'result' %}" method="POST">
+       <h3>Select the category of input image</h3> 
+        {% csrf_token %}
+        <select name="algorithm" id="algorithm">
+            <option value="Fabric">1: Fabric</option>
+            <option value="Metal">2: Metal</option>
+          </select>
+          <br/><br />
+          <button class="btn btn-default" type="submit" style="font-size: 14px;">Start</button>
+          </form>
+{% endif %}
+  <form action="{% url 'randomise' %}" method="POST">
+  {% csrf_token %}
+    <button class="btn btn default" type="submit" style="font-size: 14px;">Random</button>
+  </form>
+</div>
+ {% endblock %}

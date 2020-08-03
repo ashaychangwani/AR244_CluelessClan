@@ -1,0 +1,3 @@
+django
+django-tools
+django-crispy-forms

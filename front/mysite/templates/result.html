@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div style="text-align: center; left: 50%; top : 50%;">
+    <br> <br />
+    <br> <br />
+    <br> <br />
+    <br> <br />
+    <br> <br />
+    <h3>Input Image</h3>
+    <div><img src="{% static original %}" width="75%"></div>
+    <br> <br/> 
+    <h3>Ouput from Neural Network</h3>
+    <div><img src="{% static op %}" width="75%"></div>
+    <p>The given image is of {{category}} category!</p>
+    <p> The given test image {{faults}} faults!</p>   
+    <p>{{message}}</p>
+</div>
+
+
+{% endblock %}

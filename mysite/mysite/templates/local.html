@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div style="text-align: center; left: 50%; top : 50%;">
+    <img src="{% static category %}"  width="50%">
+    <p>The given image is of {{category}} category!</p>
+</div>
+
+{% endblock %}

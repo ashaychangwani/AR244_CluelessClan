@@ -90,7 +90,7 @@ def error_email(img_path):
         " in batch number "+str(batch_id)+". \n\nRegards,\nAuto-Alert System"
     sender_email = "pratik.devnani98@gmail.com"
     receiver_email = "mkljngd@gmail.com"
-    password = "Monster@0255"
+    password = "*********"
 
     # Create a multipart message and set headers
     message = MIMEMultipart()
